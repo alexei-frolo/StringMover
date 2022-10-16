@@ -1,0 +1,17 @@
+<idea-plugin>
+    <id>com.frolo.stringmover</id>
+    <name>StringMover</name>
+    <version>1.0</version>
+    <vendor email="alexei.artsimovich@gmail.com">FroloApps</vendor>
+
+    <description>StringMover helps you move string resources from one module to another</description>
+
+    <idea-version since-build="173.0"/>
+
+    <extensions defaultExtensionNs="com.intellij">
+    </extensions>
+
+    <actions>
+    </actions>
+
+</idea-plugin>
