@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.frolo.plugin.stringmover.StringMoverToolWindow">
+  <grid id="27dc6" binding="content" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+    <constraints>
+      <xy x="20" y="20" width="500" height="400"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <component id="e9979" class="javax.swing.JButton" binding="move_button">
+        <constraints/>
+        <properties>
+          <text value="Move strings"/>
+        </properties>
+      </component>
+      <component id="5e1e0" class="com.frolo.plugin.stringmover.GradleModuleSearchTextField" binding="gradleModuleSearchTextField1" custom-create="true" default-binding="true">
+        <constraints/>
+      </component>
+      <component id="b5ada" class="com.frolo.plugin.stringmover.GradleModuleSearchTextField" binding="gradleModuleSearchTextField2" custom-create="true" default-binding="true">
+        <constraints/>
+      </component>
+    </children>
+  </grid>
+</form>

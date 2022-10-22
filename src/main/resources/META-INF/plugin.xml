@@ -9,6 +9,8 @@
     <idea-version since-build="173.0"/>
 
     <extensions defaultExtensionNs="com.intellij">
+        <toolWindow id="String Mover" secondary="true" icon="AllIcons.General.Modified" anchor="right"
+                    factoryClass="com.frolo.plugin.stringmover.StringMoverToolWindowFactory"/>
     </extensions>
 
     <actions>
