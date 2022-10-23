@@ -13,11 +13,13 @@
           <text value="Move strings"/>
         </properties>
       </component>
-      <component id="5e1e0" class="com.frolo.plugin.stringmover.GradleModuleSearchTextField" binding="gradleModuleSearchTextField1" custom-create="true" default-binding="true">
+      <component id="b66c3" class="javax.swing.JTextField" binding="src_module">
         <constraints/>
+        <properties/>
       </component>
-      <component id="b5ada" class="com.frolo.plugin.stringmover.GradleModuleSearchTextField" binding="gradleModuleSearchTextField2" custom-create="true" default-binding="true">
+      <component id="1772" class="javax.swing.JTextField" binding="dst_module">
         <constraints/>
+        <properties/>
       </component>
     </children>
   </grid>

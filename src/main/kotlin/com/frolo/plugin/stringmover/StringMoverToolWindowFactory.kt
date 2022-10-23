@@ -8,7 +8,7 @@ import com.intellij.ui.content.ContentFactory
 
 class StringMoverToolWindowFactory : ToolWindowFactory {
     override fun createToolWindowContent(project: Project, toolWindow: ToolWindow) {
-        val stringMoverToolWindow = StringMoverToolWindow(toolWindow)
+        val stringMoverToolWindow = StringMoverToolWindow(project, toolWindow)
         val contentFactory = ContentFactory.SERVICE.getInstance()
         val content = contentFactory.createContent(
                 stringMoverToolWindow.content, "", false)
