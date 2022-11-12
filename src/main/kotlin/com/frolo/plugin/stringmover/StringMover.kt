@@ -129,8 +129,10 @@ internal class StringMover {
     @Throws(IOException::class)
     private fun writeChanges(xmlFile: File, xml: Document) {
         val writer = FileWriter(xmlFile)
-        val outputter: XMLOutputter = XMLOutputter(Format.getPrettyFormat())
-        outputter.format = Format.getPrettyFormat()
+        val outputter: XMLOutputter = XMLOutputter()
+        outputter.format = Format.getPrettyFormat().apply {
+            indent = "    " // 4 spaces
+        }
         outputter.output(xml, writer)
         writer.close()
     }
