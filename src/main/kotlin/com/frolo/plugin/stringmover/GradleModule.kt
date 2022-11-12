@@ -1,5 +1,6 @@
 package com.frolo.plugin.stringmover
 
 data class GradleModule(
-    val path: String
+    val dirPath: String,
+    val buildFile: String
 )

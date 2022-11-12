@@ -21,7 +21,10 @@ internal class GradleHelper(private val project: Project) : GradleModuleFinder {
             child.exists() && !child.isDirectory && child.name in GRADLE_BUILD_FILES
         }
         if (gradleBuildFile != null) {
-            val module = GradleModule(gradleBuildFile.path)
+            val module = GradleModule(
+                dirPath = gradleBuildFile.parent.path,
+                buildFile = gradleBuildFile.path
+            )
             dst.add(module)
         }
         file.children?.forEach { child ->
@@ -40,7 +43,7 @@ internal class GradleHelper(private val project: Project) : GradleModuleFinder {
     }
 
     override fun findGradleModule(query: String): GradleModule? {
-        return null
+        return collectGradleModules().find { it.dirPath == query }
     }
 
     companion object {

@@ -42,3 +42,8 @@ tasks {
         token.set(System.getenv("PUBLISH_TOKEN"))
     }
 }
+
+dependencies {
+//    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    implementation("org.jdom:jdom2:2.0.6.1")
+}
