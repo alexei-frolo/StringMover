@@ -29,8 +29,10 @@ public class StringMoverToolWindow {
     private JButton move_button;
     private JTextField src_module;
     private JTextField dst_module;
-    private JRadioButton copy_radio_button;
-    private JRadioButton move_radio_button;
+    private JRadioButton keep_radio_button;
+    private JRadioButton remove_radio_button;
+    private JRadioButton ignore_radio_button;
+    private JRadioButton replace_radio_button;
 
     StringMoverToolWindow(Project project, ToolWindow window, StringMover stringMover) {
         this.project = project;
@@ -54,10 +56,15 @@ public class StringMoverToolWindow {
         SuggestionDropDownDecorator.decorate(src_module, suggestionClient);
         SuggestionDropDownDecorator.decorate(dst_module, suggestionClient);
 
-        ButtonGroup actionType = new ButtonGroup();
-        actionType.add(copy_radio_button);
-        actionType.add(move_radio_button);
-        copy_radio_button.setSelected(true);
+        ButtonGroup sourceRetentionStrategyGroup = new ButtonGroup();
+        sourceRetentionStrategyGroup.add(keep_radio_button);
+        sourceRetentionStrategyGroup.add(remove_radio_button);
+        keep_radio_button.setSelected(true);
+
+        ButtonGroup conflictStrategyGroup = new ButtonGroup();
+        conflictStrategyGroup.add(ignore_radio_button);
+        conflictStrategyGroup.add(replace_radio_button);
+        ignore_radio_button.setSelected(true);
 
         move_button.addActionListener(e -> execMoveStrings());
     }
@@ -85,15 +92,23 @@ public class StringMoverToolWindow {
             String[] keys = stringKeysRaw.split(",");
             stringKeys.addAll(Arrays.asList(keys));
         }
-        final MoverType moverType;
-        if (copy_radio_button.isSelected()) {
-            moverType = MoverType.COPY;
-        } else if (move_radio_button.isSelected()) {
-            moverType = MoverType.MOVE;
+        final StringMover.SourceRetentionStrategy sourceRetentionStrategy;
+        if (keep_radio_button.isSelected()) {
+            sourceRetentionStrategy = StringMover.SourceRetentionStrategy.KEEP;
+        } else if (remove_radio_button.isSelected()) {
+            sourceRetentionStrategy = StringMover.SourceRetentionStrategy.REMOVE;
         } else {
-            throw new IllegalStateException("Failed to define mover type");
+            throw new IllegalStateException("Failed to resolve source retention strategy");
         }
-        return new StringMover.Params(srcModule, dstModule, stringKeys, moverType);
+        final StringMover.ConflictStrategy conflictStrategy;
+        if (ignore_radio_button.isSelected()) {
+            conflictStrategy = StringMover.ConflictStrategy.IGNORE;
+        } else if (replace_radio_button.isSelected()) {
+            conflictStrategy = StringMover.ConflictStrategy.REPLACE;
+        } else {
+            throw new IllegalStateException("Failed to resolve conflict strategy");
+        }
+        return new StringMover.Params(srcModule, dstModule, stringKeys, sourceRetentionStrategy, conflictStrategy);
     }
 
     private void execMoveStrings() {

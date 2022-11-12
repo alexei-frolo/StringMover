@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.frolo.plugin.stringmover.StringMoverToolWindow">
-  <grid id="27dc6" binding="content" layout-manager="GridLayoutManager" row-count="11" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="content" layout-manager="GridLayoutManager" row-count="13" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="20" left="20" bottom="20" right="20"/>
     <constraints>
       <xy x="20" y="20" width="500" height="507"/>
@@ -37,7 +37,7 @@
       </component>
       <component id="a2fba" class="javax.swing.JButton" binding="move_button">
         <constraints>
-          <grid row="10" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="12" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value="Button"/>
@@ -69,7 +69,7 @@
       </component>
       <vspacer id="86d68">
         <constraints>
-          <grid row="9" column="0" row-span="1" col-span="2" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+          <grid row="11" column="0" row-span="1" col-span="2" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
         </constraints>
       </vspacer>
       <vspacer id="80cd">
@@ -77,20 +77,20 @@
           <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
         </constraints>
       </vspacer>
-      <component id="e3879" class="javax.swing.JRadioButton" binding="copy_radio_button">
+      <component id="e3879" class="javax.swing.JRadioButton" binding="keep_radio_button">
         <constraints>
           <grid row="8" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Copy"/>
+          <text value="Keep"/>
         </properties>
       </component>
-      <component id="e0efa" class="javax.swing.JRadioButton" binding="move_radio_button">
+      <component id="e0efa" class="javax.swing.JRadioButton" binding="remove_radio_button">
         <constraints>
           <grid row="8" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Move"/>
+          <text value="Remove"/>
         </properties>
       </component>
       <component id="4d867" class="javax.swing.JLabel">
@@ -98,7 +98,31 @@
           <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Mover type"/>
+          <text value="Source retention strategy"/>
+        </properties>
+      </component>
+      <component id="9a1ba" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="9" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Conflict strategy"/>
+        </properties>
+      </component>
+      <component id="1cb6b" class="javax.swing.JRadioButton" binding="ignore_radio_button">
+        <constraints>
+          <grid row="10" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Ignore"/>
+        </properties>
+      </component>
+      <component id="8691d" class="javax.swing.JRadioButton" binding="replace_radio_button">
+        <constraints>
+          <grid row="10" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Replace"/>
         </properties>
       </component>
     </children>
