@@ -42,12 +42,14 @@ internal class StringMover {
             if (srcFile == null || !srcFile.exists()) {
                 return@forEach
             }
-            val lang = nameParts.find { it.length == 2 }
-            val dstDirName = if (lang.isNullOrBlank()) {
-                DEFAULT_VALUES_DIR
-            } else {
-                "$DEFAULT_VALUES_DIR-$lang"
-            }
+//            val lang = nameParts.find { it.length == 2 }
+//            val dstDirName = if (lang.isNullOrBlank()) {
+//                DEFAULT_VALUES_DIR
+//            } else {
+//                "$DEFAULT_VALUES_DIR-$lang"
+//            }
+            // Preserve all the prefixes
+            val dstDirName = child.name
             try {
                 val dstDir = File(dstResFolder, dstDirName).apply { mkdirs() }
                 val dstFile = File(dstDir, DEFAULT_STRINGS_FILE).also { checkXmlResourceFile(it) }
