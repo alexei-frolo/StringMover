@@ -129,7 +129,7 @@ internal class StringMover {
     @Throws(IOException::class)
     private fun writeChanges(xmlFile: File, xml: Document) {
         val writer = FileWriter(xmlFile)
-        val outputter: XMLOutputter = XMLOutputter()
+        val outputter: XMLOutputter = XMLOutputter(Format.getPrettyFormat())
         outputter.format = Format.getPrettyFormat()
         outputter.output(xml, writer)
         writer.close()
