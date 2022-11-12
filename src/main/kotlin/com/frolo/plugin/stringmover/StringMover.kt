@@ -57,7 +57,8 @@ internal class StringMover {
                     fromXmlFile = srcFile,
                     toXmlFile = dstFile,
                     keys = params.stringKeys,
-                    moverType = params.type
+                    sourceRetentionStrategy = params.sourceRetentionStrategy,
+                    conflictStrategy = params.conflictStrategy
                 )
             } catch (e: Throwable) {
                 errorDispatcher.dispatchError(e)
@@ -78,7 +79,8 @@ internal class StringMover {
         fromXmlFile: File,
         toXmlFile: File,
         keys: Set<String>,
-        moverType: MoverType
+        sourceRetentionStrategy: SourceRetentionStrategy,
+        conflictStrategy: ConflictStrategy
     ) {
         val translations: MutableCollection<Element> = LinkedList<Element>()
         val builder: SAXBuilder = SAXBuilder()
@@ -94,7 +96,7 @@ internal class StringMover {
                 translations.add(el)
             }
         }
-        if (moverType == MoverType.MOVE) {
+        if (sourceRetentionStrategy == SourceRetentionStrategy.REMOVE) {
             // Remove translations in the src xml
             for (el in translations) {
                 srcXml.rootElement.removeContent(el)
@@ -102,8 +104,20 @@ internal class StringMover {
         }
         // Add translations to the dst xml
         for (el in translations) {
+            val name = el.getAttributeValue(XML_ATTR_NAME)
+            val existingContent = dstXml.rootElement.children.find { it.getAttributeValue(XML_ATTR_NAME) == name }
+            if (existingContent != null) {
+                when (conflictStrategy) {
+                    ConflictStrategy.IGNORE -> {
+                        continue
+                    }
+                    ConflictStrategy.REPLACE -> {
+                        dstXml.rootElement.removeContent(existingContent)
+                    }
+                }
+            }
             val newChild: Element = Element(XML_TAG_STRING)
-            newChild.setAttribute(XML_ATTR_NAME, el.getAttributeValue(XML_ATTR_NAME))
+            newChild.setAttribute(XML_ATTR_NAME, name)
             newChild.text = el.text
             dstXml.rootElement.addContent(newChild)
         }
@@ -144,8 +158,17 @@ internal class StringMover {
         val srcModule: GradleModule,
         val dstModule: GradleModule,
         val stringKeys: Set<String>,
-        val type: MoverType
+        val sourceRetentionStrategy: SourceRetentionStrategy,
+        val conflictStrategy: ConflictStrategy
     )
+
+    enum class SourceRetentionStrategy {
+        KEEP, REMOVE
+    }
+
+    enum class ConflictStrategy {
+        IGNORE, REPLACE
+    }
 
     companion object {
         private const val DEFAULT_VALUES_DIR = "values"
