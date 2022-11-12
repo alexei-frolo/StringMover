@@ -56,7 +56,8 @@ internal class StringMover {
                 moveTranslationsInXml(
                     fromXmlFile = srcFile,
                     toXmlFile = dstFile,
-                    keys = params.stringKeys
+                    keys = params.stringKeys,
+                    moverType = params.type
                 )
             } catch (e: Throwable) {
                 errorDispatcher.dispatchError(e)
@@ -76,7 +77,8 @@ internal class StringMover {
     private fun moveTranslationsInXml(
         fromXmlFile: File,
         toXmlFile: File,
-        keys: Set<String>
+        keys: Set<String>,
+        moverType: MoverType
     ) {
         val translations: MutableCollection<Element> = LinkedList<Element>()
         val builder: SAXBuilder = SAXBuilder()
@@ -92,9 +94,11 @@ internal class StringMover {
                 translations.add(el)
             }
         }
-        // Remove translations in the src xml
-        for (el in translations) {
-            srcXml.rootElement.removeContent(el)
+        if (moverType == MoverType.MOVE) {
+            // Remove translations in the src xml
+            for (el in translations) {
+                srcXml.rootElement.removeContent(el)
+            }
         }
         // Add translations to the dst xml
         for (el in translations) {
@@ -139,7 +143,8 @@ internal class StringMover {
     data class Params(
         val srcModule: GradleModule,
         val dstModule: GradleModule,
-        val stringKeys: Set<String>
+        val stringKeys: Set<String>,
+        val type: MoverType
     )
 
     companion object {

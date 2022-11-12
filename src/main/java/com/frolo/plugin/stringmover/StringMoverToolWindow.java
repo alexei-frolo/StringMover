@@ -29,6 +29,8 @@ public class StringMoverToolWindow {
     private JButton move_button;
     private JTextField src_module;
     private JTextField dst_module;
+    private JRadioButton copy_radio_button;
+    private JRadioButton move_radio_button;
 
     StringMoverToolWindow(Project project, ToolWindow window, StringMover stringMover) {
         this.project = project;
@@ -51,6 +53,12 @@ public class StringMoverToolWindow {
             new TextComponentSuggestionClient(suggestionProvider);
         SuggestionDropDownDecorator.decorate(src_module, suggestionClient);
         SuggestionDropDownDecorator.decorate(dst_module, suggestionClient);
+
+        ButtonGroup actionType = new ButtonGroup();
+        actionType.add(copy_radio_button);
+        actionType.add(move_radio_button);
+        copy_radio_button.setSelected(true);
+
         move_button.addActionListener(e -> execMoveStrings());
     }
 
@@ -77,7 +85,15 @@ public class StringMoverToolWindow {
             String[] keys = stringKeysRaw.split(",");
             stringKeys.addAll(Arrays.asList(keys));
         }
-        return new StringMover.Params(srcModule, dstModule, stringKeys);
+        final MoverType moverType;
+        if (copy_radio_button.isSelected()) {
+            moverType = MoverType.COPY;
+        } else if (move_radio_button.isSelected()) {
+            moverType = MoverType.MOVE;
+        } else {
+            throw new IllegalStateException("Failed to define mover type");
+        }
+        return new StringMover.Params(srcModule, dstModule, stringKeys, moverType);
     }
 
     private void execMoveStrings() {
