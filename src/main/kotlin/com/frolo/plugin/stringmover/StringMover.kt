@@ -7,7 +7,7 @@ import org.jdom.input.SAXBuilder
 import org.jdom.output.Format
 import org.jdom.output.XMLOutputter
 import java.io.File
-import java.io.FileWriter
+import java.io.FileOutputStream
 import java.io.IOException
 import java.lang.IllegalArgumentException
 import java.util.*
@@ -128,13 +128,13 @@ internal class StringMover {
 
     @Throws(IOException::class)
     private fun writeChanges(xmlFile: File, xml: Document) {
-        val writer = FileWriter(xmlFile)
+        val outputStream = FileOutputStream(xmlFile)
         val outputter: XMLOutputter = XMLOutputter()
         outputter.format = Format.getPrettyFormat().apply {
             indent = "    " // 4 spaces
         }
-        outputter.output(xml, writer)
-        writer.close()
+        outputter.output(xml, outputStream)
+        outputStream.close()
     }
 
     private fun resolveModulePath(projectPath: String, module: String): String {
