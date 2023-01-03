@@ -7,7 +7,7 @@ public interface SuggestionClient<C extends JComponent> {
 
     Point getPopupLocation(C invoker);
 
-    void setSelectedText(C invoker, String selectedValue);
+    void setSelection(C invoker, Suggestion selectedValue);
 
     java.util.List<Suggestion> getSuggestions(C invoker);
 

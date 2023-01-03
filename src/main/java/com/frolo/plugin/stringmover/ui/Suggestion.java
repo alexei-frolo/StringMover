@@ -15,7 +15,7 @@ public final class Suggestion {
     }
 
     Suggestion(@NotNull String text) {
-        this(text, null);
+        this(text, text);
     }
 
     Suggestion(@NotNull String text, @Nullable Object model) {

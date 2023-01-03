@@ -79,11 +79,11 @@ public class StringMoverToolWindow {
     }
 
     private StringMover.Params readStringMoverParams() throws Exception {
-        GradleModule srcModule = gradleHelper.findGradleModule(src_module.getText());
+        GradleModule srcModule = (GradleModule) TextComponentSuggestionClient.getSelection(src_module);
         if (srcModule == null) {
             throw new NullPointerException("Src module not found");
         }
-        GradleModule dstModule = gradleHelper.findGradleModule(dst_module.getText());
+        GradleModule dstModule = (GradleModule) TextComponentSuggestionClient.getSelection(dst_module);
         if (dstModule == null) {
             throw new NullPointerException("Dst module not found");
         }
