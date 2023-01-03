@@ -12,9 +12,9 @@ import java.util.function.Function;
  * Matches individual words instead of complete text
  */
 public class TextComponentWordSuggestionClient implements SuggestionClient<JTextComponent> {
-    private Function<String, List<String>> suggestionProvider;
+    private Function<String, List<Suggestion>> suggestionProvider;
 
-    public TextComponentWordSuggestionClient(Function<String, List<String>> suggestionProvider) {
+    public TextComponentWordSuggestionClient(Function<String, List<Suggestion>> suggestionProvider) {
         this.suggestionProvider = suggestionProvider;
     }
 
@@ -51,7 +51,7 @@ public class TextComponentWordSuggestionClient implements SuggestionClient<JText
     }
 
     @Override
-    public List<String> getSuggestions(JTextComponent tp) {
+    public List<Suggestion> getSuggestions(JTextComponent tp) {
         try {
             int cp = tp.getCaretPosition();
             if (cp != 0) {

@@ -9,11 +9,11 @@ internal class GradleHelper(private val project: Project) : GradleModuleFinder {
     private fun collectGradleModules(): List<GradleModule> {
         val rootDir = project.guessProjectDir() ?: throw NullPointerException("Failed to guess project dir")
         val gradleModules = ArrayList<GradleModule>()
-        collectGradleModules(rootDir, gradleModules)
+        collectGradleModules(rootDir, rootDir, gradleModules)
         return gradleModules
     }
 
-    private fun collectGradleModules(file: VirtualFile, dst: MutableList<GradleModule>) {
+    private fun collectGradleModules(file: VirtualFile, rootFile: VirtualFile, dst: MutableList<GradleModule>) {
         if (!file.exists() || !file.isDirectory) {
             return
         }
@@ -21,15 +21,20 @@ internal class GradleHelper(private val project: Project) : GradleModuleFinder {
             child.exists() && !child.isDirectory && child.name in GRADLE_BUILD_FILES
         }
         if (gradleBuildFile != null) {
+            val dirPath = gradleBuildFile.parent.path
+            val moduleName = dirPath
+                    .removePrefix(rootFile.path)
+                    .removePrefix("/")
             val module = GradleModule(
-                dirPath = gradleBuildFile.parent.path,
+                dirPath = dirPath,
+                moduleName = moduleName,
                 buildFile = gradleBuildFile.path
             )
             dst.add(module)
         }
         file.children?.forEach { child ->
             if (child.exists() && child.isDirectory) {
-                collectGradleModules(child, dst)
+                collectGradleModules(child, rootFile, dst)
             }
         }
     }

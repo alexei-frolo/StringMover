@@ -9,6 +9,6 @@ public interface SuggestionClient<C extends JComponent> {
 
     void setSelectedText(C invoker, String selectedValue);
 
-    java.util.List<String> getSuggestions(C invoker);
+    java.util.List<Suggestion> getSuggestions(C invoker);
 
 }

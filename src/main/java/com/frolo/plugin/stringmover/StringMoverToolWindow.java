@@ -1,5 +1,6 @@
 package com.frolo.plugin.stringmover;
 
+import com.frolo.plugin.stringmover.ui.Suggestion;
 import com.frolo.plugin.stringmover.ui.SuggestionClient;
 import com.frolo.plugin.stringmover.ui.SuggestionDropDownDecorator;
 import com.frolo.plugin.stringmover.ui.TextComponentSuggestionClient;
@@ -42,12 +43,12 @@ public class StringMoverToolWindow {
     }
 
     private void setupComponents() {
-        Function<String, List<String>> suggestionProvider = s -> {
+        Function<String, List<Suggestion>> suggestionProvider = s -> {
             if (s == null) s = "";
             List<GradleModule> modules = gradleHelper.getGradleModuleSuggestions(s);
-            List<String> suggestions = new ArrayList<>(modules.size());
+            List<Suggestion> suggestions = new ArrayList<>(modules.size());
             for (GradleModule module : modules) {
-                suggestions.add(module.getDirPath());
+                suggestions.add(Suggestion.of(module.getModuleName(), module));
             }
             return suggestions;
         };

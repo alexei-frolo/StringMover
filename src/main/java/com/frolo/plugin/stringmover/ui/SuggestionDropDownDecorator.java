@@ -14,8 +14,8 @@ public class SuggestionDropDownDecorator<C extends JComponent> {
     private final C invoker;
     private final SuggestionClient<C> suggestionClient;
     private JPopupMenu popupMenu;
-    private JList<String> listComp;
-    DefaultListModel<String> listModel;
+    private JList<Suggestion> listComp;
+    DefaultListModel<Suggestion> listModel;
     private boolean disableTextEvent;
 
     public SuggestionDropDownDecorator(C invoker, SuggestionClient<C> suggestionClient) {
@@ -68,7 +68,7 @@ public class SuggestionDropDownDecorator<C extends JComponent> {
                         return;
                     }
                     SwingUtilities.invokeLater(() -> {
-                        List<String> suggestions = suggestionClient.getSuggestions(invoker);
+                        List<Suggestion> suggestions = suggestionClient.getSuggestions(invoker);
                         if (suggestions != null && !suggestions.isEmpty()) {
                             showPopup(suggestions);
                         } else {
@@ -80,7 +80,7 @@ public class SuggestionDropDownDecorator<C extends JComponent> {
         }//todo init invoker components other than text components
     }
 
-    private void showPopup(List<String> suggestions) {
+    private void showPopup(List<Suggestion> suggestions) {
         listModel.clear();
         suggestions.forEach(listModel::addElement);
         Point p = suggestionClient.getPopupLocation(invoker);
@@ -115,9 +115,9 @@ public class SuggestionDropDownDecorator<C extends JComponent> {
             int selectedIndex = listComp.getSelectedIndex();
             if (selectedIndex != -1) {
                 popupMenu.setVisible(false);
-                String selectedValue = listComp.getSelectedValue();
+                Suggestion selectedValue = listComp.getSelectedValue();
                 disableTextEvent = true;
-                suggestionClient.setSelectedText(invoker, selectedValue);
+                suggestionClient.setSelectedText(invoker, selectedValue.text);
                 disableTextEvent = false;
                 e.consume();
             }

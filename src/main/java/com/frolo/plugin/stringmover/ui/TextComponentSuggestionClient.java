@@ -10,9 +10,9 @@ import java.util.function.Function;
  */
 public class TextComponentSuggestionClient implements SuggestionClient<JTextComponent> {
 
-    private Function<String, List<String>> suggestionProvider;
+    private Function<String, List<Suggestion>> suggestionProvider;
 
-    public TextComponentSuggestionClient(Function<String, List<String>> suggestionProvider) {
+    public TextComponentSuggestionClient(Function<String, List<Suggestion>> suggestionProvider) {
         this.suggestionProvider = suggestionProvider;
     }
 
@@ -27,7 +27,7 @@ public class TextComponentSuggestionClient implements SuggestionClient<JTextComp
     }
 
     @Override
-    public List<String> getSuggestions(JTextComponent invoker) {
+    public List<Suggestion> getSuggestions(JTextComponent invoker) {
         return suggestionProvider.apply(invoker.getText().trim());
     }
 }
